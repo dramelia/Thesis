@@ -1,0 +1,81 @@
+nextflow.enable.strict = false
+dumpHashes = false
+
+
+plugins {
+  id 'nf-prov'
+  id 'nf-co2footprint'
+}
+def timestamp = new java.util.Date().format( 'yyyy-MM-dd_HH-mm-ss')
+
+prov {
+  formats {
+    bco {
+      file = "${params.outdir}/pipeline_info/nfprov_bco_${timestamp}.json"
+      overwrite = true
+        }
+    legacy {
+      file = "${params.outdir}/pipeline_info/nfprov_manifest_${timestamp}.json"
+      overwrite = true
+        }
+    }
+}
+
+
+/* co2footprint {
+    traceFile   = "${params.outdir}/pipeline_info/co2_emissions/co2footprint_trace_${timestamp}.txt"
+    reportFile  = "${params.outdir}/pipeline_info/co2_emissions/co2footprint_report_${timestamp}.html"
+    summaryFile  = "${params.outdir}/pipeline_info/co2_emissions/co2footprint_summary_${timestamp}.html"
+    ci          = 300
+    pue         = 1.4
+}*/
+
+
+singularity {
+    enabled = false
+}
+
+docker {
+	enabled=false
+}
+
+apptainer {
+    enabled = true
+    // the default is 20 minutes and fails with large images
+    pullTimeout = "3 hours"
+}
+
+
+
+process{
+    // this is to avoid errors for missing files due to shared filesystem latency
+    errorStrategy = "retry"
+	maxRetries = 2
+    cache = "lenient"
+    afterScript = "sleep 30" // to avoid fail when using storeDir for missing output
+
+
+    withName: 'NFCORE_RNASEQ:RNASEQ:DUPRADAR' {
+        cpus = {
+            8 * task.attempt
+        }
+        memory = { 64.GB * task.attempt
+        }
+    }
+}
+
+executor {
+       name = "slurm"
+    queueSize = 2000
+    submitRateLimit = "10/1sec"
+    exitReadTimeout = "30 min"
+    jobName = {
+        task.name // [] and " " not allowed in lsf job names
+            .replace("[",
+        "(")
+            .replace("]",
+        ")")
+            .replace(" ",
+        "_")
+    }
+}
