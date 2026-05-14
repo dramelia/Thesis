@@ -90,47 +90,30 @@ Use the UPDATED (to newer python version) geneSetOverlaps_v2.py. Setting informa
 Matthew Care provided the scripts for targeted gene panel development.
 
 Scripts used for targeted panel development:
+1) getWeightedDegreePerModule.py
+2) separate_geneAnno.py
+3) gatherWeightedDegreePerModuleAcrossNetworksAutoRank.py
+
+These are run as described in thesis.
+
+## Part 4 Method: scRNAseq analysis
+
+These scripts were written by Amelia Fisher using documentation available from https://scanpy.readthedocs.io/en/stable/ and https://scirpy.scverse.org/en/latest/
+Matthew Care provided some amendements to these scripts to improve running efficiency, and expert advice on the selection of certain functions, for example ComBat batch correction. 
+
+The scripts are run as desctribed in the thesis. 
+
+Scripts used for scRNAseq analysis:
+1) scanpy_analysis_AllData_v4_clean.ipynb
+2) BCR_multiBatch_identifyCLLclones.ipynb
+3) BCR_multibatch_RemoveClones.ipynb
+4) BCR_removeANDdownstream_v2.ipynb
+5) Stereotypy_BCRsubtypes_v2.ipynb
+6) Stats_ClonalExpansion.ipynb
+7) Stats_BCellType_v4.ipynb
+8) Stereotypy_BCRsubtypes_ForArrest.ipynb
 
 
-# Module Neighbourhoods
-Uses jupyter notebook.
-1. Run automaticModuleRefinement_v2.ipynb. Change the workfolder, edges and modules as per PGCNA_Downstream.pdf.
-
-
-# Network Module Signature Enrichments
-See section of the same name in PGCNA_Downstream.pdf for a list of heatmap generation options. Online tools such as https://software.broadinstitute.org/morpheus/ can be used. 
-
-# Module gene weighted degree
-This is part of the pipeline used to design a panel as well.
-1. Run getWeightDegreePerModule_AF.py
-
-# Module/Neighbourhood Expression Values
-This can be re-run when the modules have been given names to update the output with useful names on it. 
-1. Run rankedGenesToMEVs_selectByDatasetCorr.py
-I have kept the following settings for my run, for further infomation see PGCNA_Downstream.pfd
-MIN_GENE_NUMBER = 5 (default)
-GENE_PER_MEV = 10 (default)
-2. If desried, heatmaps can be made for each dataset that makes up a PGCNA. For example, if a PGCNA is made of 3 experiments a heatmap can be generated for experiment 1, 2 and 3. More detail in PGCNA_Downstream.pdf.
-
-## Gene signature enrichment analysis
-
-# Gene signature enrichment analysis - single folder of lists
-This runs in the terminal. If that is not helpful and a node is required, see testGenesForGeneSetEnrichmentFastPY3_onNode.py as a structure suggestion, which also shows how it would be written in terminal. 
-1. Run testGenesForGeneSetEnrichmentFastPY3.py. Note that the file given on this repository: Databases/#myGeneAllSigs_2021.07.09_WithGO-J.txt.gz will need to be unzipped before use. Further info on parameters in PGCNA_Downstream.pdf.
-
-
-
-## Part 3 Method: Analysis of PGCNA Network
-# Scripts to build a pipeline manually and enable robust/thorough analysis of the PGCNA data.
-
-
-
-
-
-
-
-
-### Part 1: SRA to PGCNA
-## Dependencies and installed versions:
-# Use nextflow.config_rnaseq for all of this pipeline. This config also works for any standard raw rnaseq files.
-# Python 3. I used 3.12.9
+Notes:
+- scanpy_analysis_AllData_v4_clean.ipynb contains a list of modules dependancies
+- BCR_multiBatch_identifyCLLclones.ipynb was run twice, once for controls to establish baselines, then again for cases. 
