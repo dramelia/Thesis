@@ -84,8 +84,8 @@ Use the UPDATED (to newer python version) geneSetOverlaps_v2.py. Setting informa
 
 
 ## Part 3 Method: PGCNA to Panel
-# This method enables building of gene panels for research laboratory use from PGCNA data. 
-# The method presented here is bespoke to our research questions and technical limitations. In short: non-coding genes, highly expressed genes likely to 'soak up' reads and ribosomal genes are excluded. Everything else was retained and stratified by rank and module representation, for selection into the gene panel based on how many genes could be included (cost) and duplicates already represented in an existing panel were exlcuded. 
+This method enables building of gene panels for research laboratory use from PGCNA data. 
+The method presented here is bespoke to our research questions and technical limitations. In short: non-coding genes, highly expressed genes likely to 'soak up' reads and ribosomal genes are excluded. Everything else was retained and stratified by rank and module representation, for selection into the gene panel based on how many genes could be included (cost) and duplicates already represented in an existing panel were exlcuded. 
 
 Matthew Care provided the scripts for targeted gene panel development.
 
@@ -103,7 +103,7 @@ Matthew Care provided some amendements to these scripts to improve running effic
 
 The scripts are run as desctribed in the thesis. 
 
-# Scripts used for scRNAseq analysis:
+### Scripts used for scRNAseq analysis:
 1) scanpy_analysis_AllData_v4_clean.ipynb
 2) BCR_multiBatch_identifyCLLclones.ipynb
 3) BCR_multibatch_RemoveClones.ipynb
@@ -114,6 +114,6 @@ The scripts are run as desctribed in the thesis.
 8) Stereotypy_BCRsubtypes_ForArrest.ipynb
 
 
-# Notes:
+### Notes:
 - scanpy_analysis_AllData_v4_clean.ipynb contains a list of modules dependancies
 - BCR_multiBatch_identifyCLLclones.ipynb was run twice, once for controls to establish baselines, then again for cases. 
